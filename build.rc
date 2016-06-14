@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# export ARTIFACT_URL=http://artifacts.stackinabox.io.s3-website-us-east-1.amazonaws.com
+export ARTIFACT_URL=http://artifacts.stackinabox.io/urbancode/ibm-ucd-agent-relay
+export ARTIFACT_STREAM=latest
+
+export DOCKER_EMAIL=tim.pouyer@gmail.com
+export DOCKER_USERNAME=tpouyer
+export DOCKER_PASSWORD=74ac9z35
