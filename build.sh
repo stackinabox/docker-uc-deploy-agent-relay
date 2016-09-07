@@ -21,4 +21,4 @@ echo "artifact download url: $ARTIFACT_DOWNLOAD_URL"
 
 docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 docker build -t stackinabox/urbancode-deploy-agent-relay:$ARTIFACT_VERSION --build-arg ARTIFACT_DOWNLOAD_URL=$ARTIFACT_DOWNLOAD_URL --build-arg ARTIFACT_VERSION=$ARTIFACT_VERSION .
-#docker push stackinabox/urbancode-deploy-agent:$ARTIFACT_VERSION
+docker push stackinabox/urbancode-deploy-agent-relay:$ARTIFACT_VERSION

@@ -19,6 +19,17 @@ fi
 echo "$IP_ADDRESS $PUBLIC_HOSTNAME" >> /etc/hosts
 
 if [ -z "$DEPLOY_SERVER_AUTH_TOKEN" ]; then
+
+  attempt=1
+  until $(curl -k -u admin:admin --output /dev/null --silent --head --fail "${UCD_SERVER}:${UCD_SERVER_HTTP_PORT}/#security/tokens"); do
+      attempt=attempt + 1
+      sleep 5
+      if attempt > 5; then
+        echo "Failed to connect to ucd server at ${UCD_SERVER}:${UCD_SERVER_HTTP_PORT}. Please check for valid values for UCD_SERVER and UCD_SERVER_HTTP_PORT."
+        exit 1;
+      done
+  done
+
 	DEPLOY_SERVER_AUTH_TOKEN=$(curl -k -u admin:admin \
     	-X PUT \
     	"${UCD_SERVER}:${UCD_SERVER_HTTP_PORT}/cli/teamsecurity/tokens?user=admin&expireDate=12-31-2020-12:00" | python -c \
