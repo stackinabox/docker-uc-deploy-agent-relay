@@ -20,14 +20,16 @@ echo "$IP_ADDRESS $PUBLIC_HOSTNAME" >> /etc/hosts
 
 if [ -z "$DEPLOY_SERVER_AUTH_TOKEN" ]; then
 
+  # UCD Server takes a few seconds to startup. If we call this function too early it will fail
+  # loop until it succeeds or fail after # of attempts
   attempt=1
-  until $(curl -k -u admin:admin --output /dev/null --silent --head --fail "${UCD_SERVER}:${UCD_SERVER_HTTP_PORT}/#security/tokens"); do
-      attempt=attempt + 1
-      sleep 5
-      if attempt > 5; then
+  until $(curl -k -u admin:admin --output /dev/null --silent --head --fail "${UCD_SERVER}:${UCD_SERVER_HTTP_PORT}/cli/systemConfiguration"); do
+      attempt=$(($attempt + 1))
+      sleep 10
+      if [ "$attempt" -gt "18" ]; then
         echo "Failed to connect to ucd server at ${UCD_SERVER}:${UCD_SERVER_HTTP_PORT}. Please check for valid values for UCD_SERVER and UCD_SERVER_HTTP_PORT."
-        exit 1;
-      done
+        exit 1
+      fi
   done
 
 	DEPLOY_SERVER_AUTH_TOKEN=$(curl -k -u admin:admin \
