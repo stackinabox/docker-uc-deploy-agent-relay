@@ -1,0 +1,11 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+install: true
+
+script:
+  - ./build.sh
