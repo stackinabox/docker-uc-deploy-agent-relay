@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/stackinabox/docker-uc-deploy-agent-relay.svg?branch=master)](https://travis-ci.org/stackinabox/docker-uc-deploy-agent-relay)
+
 # docker-urbancode-deploy-agent
 Containerised UrbanCode Deploy Agent
 
